@@ -27,9 +27,21 @@ function emptyList () {
 function createItem (pokemon) {
     // Create a li tag
     const item = document.createElement("li");
+    const name = document.createElement("div");
+    name.className = "name";
+    thumbnail.className = "thumbnail";
+    name.innerHTML = data.name;
+    thumbnail.src = data.sprites.front_default;
+
+    
     // ...
     fetch(pokemon.url).then(transformToJson).then((data) => {
         // ...
+
+        //console.log(pokemon);
+       /* item.textContent = name;
+        name.appendChild(item)*/
+      
     });
 }
 
@@ -39,6 +51,7 @@ function createItem (pokemon) {
 function fillList (json) {
     emptyList();
     json.results.forEach(createItem);
+
 }
 
 /**
@@ -50,6 +63,7 @@ function showDescription (data) {
     const fields = description.querySelectorAll("dd");
     fields.forEach((dd) => {
         // ...
+    
     });
 }
 
@@ -62,3 +76,4 @@ function hideDescription () {
 
 // Fetch the API end-point and fill the list
 fetch(api).then(transformToJson).then(fillList);
+console.log(api);
