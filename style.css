@@ -1,11 +1,25 @@
+/* Tester inline-block et display flex*/
 #list {
+ background-color: #EFA905;
 }
 #list li {
     cursor: pointer;
+    display: inline;
 }
 #list li:hover {
 }
+.grid {
+    display: grid;
+    grid-template-columns:(5, 350px);
+    grid-template-rows: (10, 200px 123vh 10vh);
+    border: 2px solid;
+}
 
-#description {
-    display: none;
+h1 {
+    text-decoration: underline;
+    color:white;
+}
+
+body {
+    background-color:#EFA905;
 }

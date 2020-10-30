@@ -27,21 +27,24 @@ function emptyList () {
 function createItem (pokemon) {
     // Create a li tag
     const item = document.createElement("li");
-    const name = document.createElement("div");
-    name.className = "name";
-    thumbnail.className = "thumbnail";
-    name.innerHTML = data.name;
-    thumbnail.src = data.sprites.front_default;
-
+    const image  = document.createElement("img");
+    const name  = document.createElement("name");
     
+    name.innerHTML = pokemon.name;
+
     // ...
     fetch(pokemon.url).then(transformToJson).then((data) => {
         // ...
+        item.appendChild(image);
+        list.appendChild(item);
+        image.setAttribute("src", data.sprites.front_default);
+        image.url = pokemon.url;
+        item.insertAdjacentElement('beforeend', name);
 
-        //console.log(pokemon);
-       /* item.textContent = name;
-        name.appendChild(item)*/
-      
+        item.addEventListener("click", () =>  {
+            showDescription(data)
+        });
+        
     });
 }
 
@@ -60,9 +63,31 @@ function fillList (json) {
 function showDescription (data) {
     description.classList.add("show");
 
-    const fields = description.querySelectorAll("dd");
+    const fields = description.querySelectorAll("dd")
+    const imageFields = description.querySelector("img")
+    if (imageFields != null){
+        imageFields.remove();
+    }
+
+
+    image.setAttribute("src", data.sprites.other.dream_world.front_default);
+    description.insertAdjacentElement("afterbegin",image);
+
     fields.forEach((dd) => {
         // ...
+      dd.innerText = "";
+      const desc = dd.className;
+      if (desc == "types"){
+        dd.innerText = "";
+        console.log(data.types);
+        data.types.forEach((types) => {
+            console.log(type.type.name);
+            dd.innerHTML += "<div class='type'>" + type.type.name + "</div>";
+            console.log(dd);
+        });
+      }else {
+          dd.innerText = data [desc];
+      }
     
     });
 }
@@ -72,6 +97,8 @@ function showDescription (data) {
  */
 function hideDescription () {
     description.classList.remove("show");
+    const fields = description.querySelectorAll("dd");
+    dd.innerText = "";
 }
 
 // Fetch the API end-point and fill the list
